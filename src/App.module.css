@@ -1,2 +1,22 @@
+*{
+  margin: 0;
+  padding: 0;
+}
+:root{
+  --main-background: rgb(238, 238, 238);
+  --btn-background: rgb(328, 320, 322);
+  --border-radius: 5px
+}
 .App{
+  align-items: center;
+  background: var(--main-background);
+  border-radius: var(--border-radius);
+  display: flex;
+  flex-direction: column;
+  padding: 15px 0;
+  justify-content: center;
+  width: 40%;
+}
+.Title{
+  font-size: 32px;
 }
