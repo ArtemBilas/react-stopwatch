@@ -16,6 +16,8 @@
   padding: 15px 0;
   justify-content: center;
   width: 40%;
+  max-width: 100%;
+  min-width: 350px;
 }
 .Title{
   font-size: 32px;
