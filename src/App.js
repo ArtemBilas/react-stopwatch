@@ -1,52 +1,87 @@
-import React, { useState } from 'react';
+import React, { useState, useRef } from 'react';
 import styles from './App.module.css';
 
-import Button from './components/Button/Button';
+import formatTime from './utils';
 import Layout from './components/Layout/Layout';
 import Stopwatch from './components/Stopwatch/Stopwatch';
 
 const App = () => {
-  const [seconds, setSeconds] = useState(0);
-  const [minutes, setMinutes] = useState(0);
-  const [hours, setHours] = useState(0);
+  const [timer, setTimer] = useState(0);
+  const countRef = useRef(null);
+  const millisecondsRef = useRef(null);
 
-  const [btnToggle, setBtnToggle] = useState('Start/Pause');
+  const [titleToggle, setBtnToggle] = useState('Start/Stop');
   const [isStart, setIsStart] = useState(true);
 
-  const btnTitleOnChange = () => {
-    if (!isStart) {
-      setIsStart(!isStart);
-      setBtnToggle('Pause');
-    } else {
-      setIsStart(!isStart);
+  const onStart = () => {
+    countRef.current = setInterval(() => {
+      setTimer((timer) => timer + 1);
+    }, 1000);
+  }
+
+  const onPause = () => {
+    clearInterval(countRef.current);
+  }
+
+  const onReset = () => {
+    clearInterval(countRef.current);
+    setTimer(0);
+
+    setIsStart(true);
+    setBtnToggle('Start/Stop');
+  }
+
+  const onCoundown = () => {
+    return millisecondsRef.current = new Date();
+  }
+
+  const onWait = () => {
+    const toMili = millisecondsRef.current.getMilliseconds();
+
+    if (toMili > 300) {
+      clearInterval(countRef.current);
+      onPause();
+
+      setIsStart(true);
       setBtnToggle('Start');
+    } else {
+      console.log('nothing');
+      return;
     }
   }
 
-  const btnOnWait = () => {
-    setBtnToggle('Start/Pause');
+  const handleToggle = () => {
+    if (!isStart) {
+      onReset()
+      setIsStart(!isStart);
+      setBtnToggle('Start/Stop');
+
+    } else {
+      onStart();
+      setIsStart(!isStart);
+      setBtnToggle('Stop');
+    }
   }
 
   return (
     <Layout>
+      <h2>Stopwatch</h2>
       <section className={styles.App}>
         <Stopwatch
-          seconds={seconds}
-          minutes={minutes}
-          hours={hours}
+          timer={timer}
+          formatTime={formatTime}
         />
-        <section>
-          <Button
-            title={btnToggle}
-            events={btnTitleOnChange}
-            classes={btnToggle}
-          />
 
-          <Button
-            title='Wait'
-            events={btnOnWait}
-            classes={btnToggle}
-          />
+        <section>
+          <button
+            onClick={() => handleToggle()}
+          >
+            {titleToggle}
+          </button>
+          <button
+            onClick={() => onCoundown()}
+            onDoubleClick={() => onWait()}
+          >Wait</button>
         </section>
       </section>
     </Layout>
