@@ -4,6 +4,7 @@ import styles from './App.module.css';
 import formatTime from './utils';
 import Layout from './components/Layout/Layout';
 import Stopwatch from './components/Stopwatch/Stopwatch';
+import BtnContainer from './components/BtnContainer/BtnContainer';
 
 const App = () => {
   const [timer, setTimer] = useState(0);
@@ -32,20 +33,26 @@ const App = () => {
   }
 
   const onCoundown = () => {
+    if(titleToggle === 'Start/Stop'){
+      return;
+    }
     return millisecondsRef.current = new Date();
   }
 
   const onWait = () => {
-    const toMili = millisecondsRef.current.getMilliseconds();
+    if(titleToggle === 'Start/Stop'){
+      return;
+    }
 
-    if (toMili > 300) {
+    const toMili = millisecondsRef.current.getMilliseconds();
+    
+    if (toMili < 300) {
       clearInterval(countRef.current);
       onPause();
 
       setIsStart(true);
       setBtnToggle('Start');
     } else {
-      console.log('nothing');
       return;
     }
   }
@@ -65,24 +72,19 @@ const App = () => {
 
   return (
     <Layout>
-      <h2>Stopwatch</h2>
       <section className={styles.App}>
+        <h2 className={styles.Title}>Stopwatch</h2>
         <Stopwatch
           timer={timer}
           formatTime={formatTime}
         />
 
-        <section>
-          <button
-            onClick={() => handleToggle()}
-          >
-            {titleToggle}
-          </button>
-          <button
-            onClick={() => onCoundown()}
-            onDoubleClick={() => onWait()}
-          >Wait</button>
-        </section>
+        <BtnContainer
+          handleToggle={handleToggle}
+          onWait={onWait}
+          onCoundown={onCoundown}
+          titleToggle={titleToggle}
+        />
       </section>
     </Layout>
   );

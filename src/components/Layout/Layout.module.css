@@ -2,6 +2,7 @@ body {
   max-width: 1440px;
   min-width: 300px;
   min-height: 100vh;
+  font-family: 'Ubuntu', sans-serif;
 }
 
 .Layout,
@@ -19,7 +20,6 @@ body {
 
 .Main {
   width: 100%;
-  height: 30vh;
+  min-height: 30vh;
   align-self: center;
-  background-color: aquamarine;
 }
