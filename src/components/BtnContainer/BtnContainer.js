@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import './BtnContainer.css';
 
 const BtnContainer = (props) => {
@@ -34,6 +35,10 @@ const BtnContainer = (props) => {
       >Wait</button>
     </section>
   );
+}
+
+BtnContainer.propTypes ={ 
+  props: PropTypes.string
 }
 
 export default BtnContainer;
