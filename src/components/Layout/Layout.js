@@ -3,18 +3,18 @@ import PropTypes from 'prop-types';
 
 import styles from './Layout.module.css';
 
-const Layout = (props) => {
+const Layout = ({children}) => {
   return (
     <section className={styles.Layout}>
       <main className={styles.Main}>
-        {props.children}
+        {children}
       </main>
     </section>
   );
 }
 
 Layout.propTypes = {
-  props: PropTypes.element
+  children: PropTypes.element
 }
 
 export default Layout;

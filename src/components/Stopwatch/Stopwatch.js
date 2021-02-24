@@ -3,8 +3,7 @@ import PropTypes from 'prop-types';
 
 import styles from './Stopwatch.module.css';
 
-const Stopwatch = (props) => {
-  const { formatTime, timer } = props;
+const Stopwatch = ({formatTime, timer}) => {
   return (
     <section className={styles.Stopwatch}>
       <p>{formatTime(timer)}</p>
@@ -13,7 +12,8 @@ const Stopwatch = (props) => {
 }
 
 Stopwatch.propTypes = {
-  props: PropTypes.string
+  formatTime : PropTypes.func,
+  timer : PropTypes.number
 }
 
 export default Stopwatch;
