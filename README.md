@@ -1,4 +1,4 @@
-# **Stopwatch**
+# **React-Stopwatch**
 ## **How to use**:
 1. Click on Start/Stop, the timer will start
 
